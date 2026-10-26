@@ -1,0 +1,28 @@
+{
+  "name": "homewizard-dash",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --ip 127.0.0.1",
+    "build": "node scripts/build.mjs",
+    "check": "node --check src/worker.js && node --check src/homewizard.js && node --check public/app.js && node --check public/export.js && node --check public/range.js",
+    "test": "node --test",
+    "deploy": "wrangler deploy --secrets-file .env"
+  },
+  "dependencies": {
+    "bulma": "1.0.4"
+  },
+  "devDependencies": {
+    "wrangler": "4.152.0"
+  },
+  "overrides": {
+    "undici": "^7.30.1"
+  },
+  "description": "Daily HomeWizard energy dashboard with date ranges and CSV exports, built on Cloudflare Workers.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Niek/homewizard-dash.git"
+  },
+  "homepage": "https://github.com/Niek/homewizard-dash#readme"
+}

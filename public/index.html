@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>HomeWizard Dash · Daily energy usage</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/vendor/bulma.min.css">
+  <link rel="stylesheet" href="/style.css?v=2">
+  <script type="module" src="/app.js?v=3"></script>
+</head>
+<body>
+  <main class="section">
+    <div class="container page">
+      <header class="page-header">
+        <div>
+          <h1 class="title is-2">Energy log</h1>
+          <p class="subtitle is-6">Daily usage from HomeWizard.</p>
+        </div>
+        <button id="export" class="button is-primary" disabled>Export CSV</button>
+      </header>
+      <form id="filters" aria-label="Choose energy readings">
+        <div class="toolbar">
+          <div class="field meter-field">
+            <label class="label" for="device">Meter</label>
+            <div class="control select is-fullwidth"><select id="device" disabled><option>Loading meters…</option></select></div>
+          </div>
+          <div class="field date-field">
+            <label class="label" for="from">From</label>
+            <input id="from" class="input" type="date" required disabled>
+          </div>
+          <div class="field date-field">
+            <label class="label" for="to">To</label>
+            <input id="to" class="input" type="date" required disabled>
+          </div>
+          <button id="refresh" class="button" type="submit" disabled>Load range</button>
+        </div>
+        <div class="presets buttons are-small">
+          <button id="today" class="button is-light" type="button" disabled>Today</button>
+          <button id="last-week" class="button is-light" type="button" disabled>Last 7 days</button>
+          <button id="this-month" class="button is-light" type="button" disabled>This month</button>
+          <button id="this-year" class="button is-light" type="button" disabled>This year</button>
+        </div>
+      </form>
+      <div id="error" class="notification is-danger is-light" role="alert" hidden></div>
+      <p id="status" class="status" role="status" aria-live="polite">Connecting to HomeWizard…</p>
+      <section id="range-content" aria-label="Energy usage" hidden>
+        <div class="range-heading">
+          <h2 id="meter-title" class="title is-4"></h2>
+          <p id="range-title" class="has-text-grey is-size-7"></p>
+        </div>
+        <div class="usage-summary">
+          <h3>Usage</h3>
+          <p><strong id="usage">—</strong> <span>kWh</span></p>
+          <p id="coverage" class="caption"></p>
+        </div>
+        <section class="chart-section" aria-labelledby="chart-title">
+          <div class="chart-heading">
+            <h3 id="chart-title" class="title is-5">Usage per day</h3>
+            <span class="has-text-grey is-size-7">kWh</span>
+          </div>
+          <div id="chart" class="chart"></div>
+        </section>
+        <section class="readings" aria-labelledby="readings-title">
+          <div class="readings-heading">
+            <h3 id="readings-title" class="title is-5">Daily totals</h3>
+            <p class="is-size-7 has-text-grey">One row per day in your CSV.</p>
+          </div>
+          <div class="table-container">
+            <table class="table is-fullwidth is-hoverable">
+              <thead><tr><th scope="col">Date</th><th scope="col">Status</th><th scope="col" class="has-text-right">Usage (kWh)</th></tr></thead>
+              <tbody id="readings-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+      <footer class="page-footer"><span>Europe/Amsterdam</span><span id="updated"></span></footer>
+    </div>
+  </main>
+</body>
+</html>
